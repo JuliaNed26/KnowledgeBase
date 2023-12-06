@@ -32,14 +32,16 @@ def say_answers(prefix, suffix, question_i, answers_i):
     for ansi in answers_i:
         ansi = make_json(str(ansi))
         obj = json.loads(str(ansi))
-        print(obj[question_i])
-        text = prefix + " " + obj[question_i] + " " + suffix
-        print(">>>> ", text)
+        print(prefix)
+        print(">>>> ", obj[question_i])
+        print(suffix)
 
 
 print(
-    "Hi, I'm here to tell you about Taras Shevchenko National University. \
-                what do you want to know about Taras Shevchenko National University?"
+    "Hi, I'm here to tell you about Taras Shevchenko National University."
+)
+print(
+    "What do you want to know about Taras Shevchenko National University?"
 )
 flg = True
 while flg:
@@ -59,8 +61,7 @@ while flg:
 
     elif (
         "introduction" in asked_question
-        or "about ju" in asked_question
-        or "about Taras Shevchenko National University" in asked_question
+        or "about knu" in asked_question
     ):
         # Q: what is Taras Shevchenko National University?
         question = "Introduction"
@@ -70,7 +71,6 @@ while flg:
 
     elif (
         "history of knu" in asked_question
-        or "history of Taras Shevchenko National University" in asked_question
     ):
         # Q: history of Taras Shevchenko National University.
         question = "History"
@@ -79,16 +79,16 @@ while flg:
         say_answers("Brief history: ", "", question, answers)
 
     elif (
-        "location of Taras Shevchenko National University" in asked_question
+        "location" in asked_question
         or "situated" in asked_question
     ):
         # Q: where is Taras Shevchenko National University?
-        question = "Loction"
+        question = "Location"
         query = "location('Taras Shevchenko National University', " + question + ")."
         answers = ask_question(query)
         say_answers("", "", question, answers)
 
-    elif "area of Taras Shevchenko National University" in asked_question:
+    elif ("area" in asked_question):
         # Q: where is Taras Shevchenko National University?
         question = "Area"
         query = "area('Taras Shevchenko National University', " + question + ")."
@@ -116,7 +116,6 @@ while flg:
     elif (
         "number of faculties" in asked_question
         or "how many faculties" in asked_question
-        and asked_question.find("faculty of") == -1
     ):
         # Q how many faculties are in Taras Shevchenko National University
         question = "Number_of_faculties"
@@ -171,23 +170,24 @@ while flg:
     ) and "under the faculty of" in asked_question:
         # Q what are the names departments in faculty of X?
         faculties = ["Faculty of Biology",
-                     "Faculty of Chemistry",
-                     "Faculty of Economics", 
-                     "Faculty of Geography", 
-                     "Faculty of History",
-                     "Faculty of Cybernetics", 
-                     "Faculty of Law",
-                     "Faculty of Mechanics and Mathematics",
-                     "Faculty of Philology",
-                     "Faculty of Philosophy", 
-                     "Faculty of Physics",
-                     "Faculty of Psychology", 
-                     "Faculty of Radiophysics, Electronics and Computer Systems",
-                     "Faculty of Social Sciences"
+                        "Faculty of Chemistry",
+                        "Faculty of Economics",
+                        "Faculty of Computer Science and Cybernetics",
+                        "Faculty of Geography",
+                        "Faculty of History",
+                        "Faculty of Cybernetics",
+                        "Faculty of Law",
+                        "Faculty of Mechanics and Mathematics",
+                        "Faculty of Philology",
+                        "Faculty of Philosophy",
+                        "Faculty of Physics",
+                        "Faculty of Psychology",
+                        "Faculty of Radiophysics, Electronics and Computer Systems",
+                        "Faculty of Social Sciences",
         ]
         id = -1
         for i in range(14):
-            if faculties[i] in asked_question:
+            if faculties[i].lower() in asked_question:
                 id = i
                 break
         if id != -1:
@@ -201,7 +201,7 @@ while flg:
                 + ")."
             )
             answers = ask_question(query)
-            print(">>>>> ", "the departments under " + faculties[id] + " are, ")
+            print("the departments under " + faculties[id] + " are, ")
             say_answers("", "", question, answers)
 
         else:
@@ -216,7 +216,7 @@ while flg:
         query = "departments('Taras Shevchenko National University', " + question + ")."
         answers = ask_question(query)
         say_answers(
-            "there are 96 departments in Taras Shevchenko National University, they are, ",
+            "there are departments in Taras Shevchenko National University",
             "",
             question,
             answers,
@@ -228,10 +228,9 @@ while flg:
         or "about Department of Theory and Technology of Programming" in asked_question
     ):
         # Q what you know about dept of TTP Taras Shevchenko National University
-        question = "Cse"
+        question = "TTP"
         query = (
-            "about_department_of_department_of_theory_and_technology_of_programming(\
-                'Taras Shevchenko National University', "
+            "about_department_of_theory_and_technology_of_programming("
             + question
             + ")."
         )
